@@ -12,7 +12,7 @@ def webhook():
     req = request.get_json(force=True)
     action = req.get('queryResult').get('action')
 
-    if (action == 'test_intent'):
+    if (action == 'get-response'):
         res = test_intent(req)
 
     response = make_response(jsonify({'fulfillmentText': res}))
