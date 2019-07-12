@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0f67610f-1566-484d-914e-0eb9b620eb9e" name="Default Changelist" comment="" />
+    <list default="true" id="0f67610f-1566-484d-914e-0eb9b620eb9e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +16,11 @@
     <leaf>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="377">
+              <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -24,6 +32,10 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -32,21 +44,62 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="20" />
-    <option name="width" value="1400" />
-    <option name="height" value="980" />
+    <option name="x" value="159" />
+    <option name="y" value="38" />
+    <option name="width" value="1390" />
+    <option name="height" value="994" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="fitness_chatbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fitness_chatbot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fitness_chatbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fitness_chatbot" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot_environment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fitness_chatbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fitness_chatbot" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot_environment" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fitness_chatbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fitness_chatbot" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot_environment" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fitness_chatbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fitness_chatbot" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot_environment" type="462c0819:PsiDirectoryNode" />
+              <item name="lib64" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fitness_chatbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fitness_chatbot" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbot_environment" type="462c0819:PsiDirectoryNode" />
+              <item name="share" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -90,12 +143,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1562914469119</updated>
-      <workItem from="1562914476600" duration="865000" />
+      <workItem from="1562914476600" duration="3991000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="865000" />
+    <option name="totallyTimeSpent" value="3991000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1020" extended-state="6" />
@@ -112,7 +165,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3297362" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33373785" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -132,7 +185,11 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
