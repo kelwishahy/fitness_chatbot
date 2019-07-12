@@ -5,11 +5,11 @@ app = Flask(__name__)
 client = MongoClient()
 
 database = client.workouts
-workouts = database.workouts
+excercises = database.excercises
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return "Welcome to Fitness Chatbot"
 
 #Identify the action and return the correct data
 @app.route('/webhook', methods=['POST'])
@@ -25,7 +25,9 @@ def webhook():
     return response
 
 def test_intent(req):
-    return "This is a test response"
+    legDayLength = excercises.find_one({"Muscle Group" : "Legs"})['Length']
+    response = 'This workout is approximately ' + str(legDayLength)
+    return response
 
 
 if __name__ == '__main__':
