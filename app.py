@@ -1,6 +1,11 @@
 from flask import Flask, request, make_response, jsonify
+from pymongo import MongoClient
 
 app = Flask(__name__)
+client = MongoClient()
+
+database = client.workouts
+workouts = database.workouts
 
 @app.route('/')
 def hello_world():
