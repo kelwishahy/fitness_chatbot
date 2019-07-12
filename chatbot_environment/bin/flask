@@ -1,4 +1,4 @@
-#!/home/ubuntu/backend_server/fitness_chatbot/chatbot_environment/bin/python3
+#!/home/ubuntu/backend_server/fitness_chatbot/chatbot_environment/bin/python
 
 # -*- coding: utf-8 -*-
 import re
