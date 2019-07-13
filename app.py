@@ -20,6 +20,9 @@ def webhook():
     if (action == 'get-response'):
         res = test_intent(req)
 
+    elif (action == 'legs'):
+        res = legDay(req)
+
     response = make_response(jsonify({'fulfillmentText': res}))
 
     return response
@@ -28,6 +31,17 @@ def test_intent(req):
     legDayLength = excercises.find_one({"Muscle Group" : "Legs"})['Length']
     response = 'This workout is approximately ' + str(legDayLength)
     return response
+
+def legDay(req):
+    legs_data = excercises.find_one({"Muscle Group" : "Legs"})
+    response = "Here is your custom workout: \n"
+    i = 1
+    for ex in legs_data['Exercises']:
+        response = response + str(i) + '. ' + ex['name']
+        i = i + 1
+
+    return response
+
 
 
 if __name__ == '__main__':
