@@ -1,0 +1,44 @@
+{
+  "Muscle Group" : "Legs",
+  "Length" : "2.5 hours",
+  "Warmup" : [
+    {
+      "name" : "light jog"
+    },
+    {
+      "name" : "stretches"
+    }
+  ],
+  "Exercises" : [
+    {
+      "name" : "Barbell Squat"
+    },
+    {
+      "name": "Romanian Deadlift"
+    },
+    {
+      "name" : "Seated Leg Extensions"
+    },
+    {
+      "name" : "Hamstring Curls"
+    },
+    {
+      "name" : "Seated Calf raises"
+    },
+    {
+      "name" : "Glute Extensions"
+    },
+    {
+      "name" : "Leg Press"
+    },
+    {
+      "name" : "Pistol Squats"
+    },
+    {
+      "name": "Bulgarian Split Squats"
+    },
+    {
+      "name" : "Curtsy Lunges"
+    }
+  ]
+}
