@@ -1,15 +1,15 @@
-from flask import Flask, request, make_response, jsonify
+from flask import Flask, request, make_response, jsonify, render_template
 from pymongo import MongoClient
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 client = MongoClient()
 
 database = client.workouts
-excercises = database.excercises
+exercises = database.exercises
 
 @app.route('/')
 def hello_world():
-    return "Welcome to Fitness Chatbot"
+    return render_template('index.html')
 
 #Identify the action and return the correct data
 @app.route('/webhook', methods=['POST'])
@@ -33,15 +33,14 @@ def test_intent(req):
     return response
 
 def legDay(req):
-    legs_data = excercises.find_one({"Muscle Group" : "Legs"})
+    legs_data = exercises.find_one({"Muscle Group" : "Legs"})
     response = "Here is your custom workout: \n"
     i = 1
     for ex in legs_data['Exercises']:
-        response = response + str(i) + '. ' + ex['name']
+        response = response + str(i) + '. ' + ex['name'] + "\n"
         i = i + 1
 
     return response
-
 
 
 if __name__ == '__main__':
