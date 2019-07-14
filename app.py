@@ -12,7 +12,7 @@ database = client.workouts
 exercises = database.exercises
 
 #create a facebookUser Instance
-currentUser = facebookUser
+currentUser = facebookUser()
 
 #Use the facebook graphAPI to retrieve user info
 graph = facebook.GraphAPI(access_token="EAAE8MYlgcvUBAJ979GWMwZBQS4zXBUjQa4H0wT5o0MGE0LHXvviagCXzPzx9ARCnrT5JiDtwSnB6XbHdsDhhYZB3lPwTOY2ZCmhYSWvMmJslnFjuIr3Hu21e5dm3ZBLr2ZC4bTeTEZBUNXfwTK1qYi6vNdZC5MVZA18X9hdY1rdY8QZDZD")
@@ -46,9 +46,9 @@ def webhook():
     action = postRequestData.get('queryResult').get('action')
 
     #Get user profile info
-    userID = postRequestData.get('queryResult').get('outputContexts').get("parameters").get("facebook_sender_id")
+    userID = postRequestData.get('queryResult').get('outputContexts')[0].get('parameters').get('facebook_sender_id')
     currentUser.setID(userID)
-    userName = graph.get_object(id=currentUser.getID(), fields='first_name')
+    userName = str(graph.get_object(id=currentUser.getID(), fields='first_name')['first_name'])
     currentUser.setName(userName)
 
     if (action == 'hood-greet'):
