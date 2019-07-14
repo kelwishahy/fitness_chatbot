@@ -36,7 +36,7 @@ def webhook():
     userName = str(graph.get_object(id=currentUser.getID(), fields='first_name')['first_name'])
     currentUser.setName(userName)
 
-    if (action == 'hood-greet'):
+    if (action == 'input.welcome'):
         res = welcomeMsg(postRequestData)
 
     elif (action == 'get-response'):
