@@ -20,7 +20,22 @@ graph = facebook.GraphAPI(access_token="EAAE8MYlgcvUBAJ979GWMwZBQS4zXBUjQa4H0wT5
 
 @app.route('/')
 def hello_world():
-    return render_template('index.html')
+    #return render_template('index.html')
+    postRequestData = request.get_json(force=True)
+
+    # Identify the requested action
+    action = postRequestData.get('queryResult').get('action')
+
+    # Get user profile info
+    userID = postRequestData.get('queryResult').get('outputContexts').get("parameters").get("facebook_sender_id")
+    currentUser.setID(userID)
+    userName = graph.get_object(id=currentUser.getID(), fields='first_name')
+    currentUser.setName(userName)
+
+    if (action == 'input.welcome'):
+        res = welcomeMsg(postRequestData)
+
+    return res;
 
 #Identify the action and return the correct data
 @app.route('/webhook', methods=['POST'])
