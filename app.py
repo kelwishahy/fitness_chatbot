@@ -56,7 +56,7 @@ def webhook():
 
         res = youtubeSearch(query)
 
-        response = make_response(jsonify({'payload':res}))
+        response = make_response(jsonify({'fulfillmentMessages'['payload':res]}))
 
         return response
 
