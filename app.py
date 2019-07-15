@@ -1,7 +1,11 @@
 from flask import Flask, request, make_response, jsonify, render_template
 from pymongo import MongoClient
 from user import facebookUser
+import requests
+
+#Facebook graph API
 import facebook
+FACEBOOK_ACCESS_TOKEN = 'EAAE8MYlgcvUBAJ979GWMwZBQS4zXBUjQa4H0wT5o0MGE0LHXvviagCXzPzx9ARCnrT5JiDtwSnB6XbHdsDhhYZB3lPwTOY2ZCmhYSWvMmJslnFjuIr3Hu21e5dm3ZBLr2ZC4bTeTEZBUNXfwTK1qYi6vNdZC5MVZA18X9hdY1rdY8QZDZD'
 
 #Youtube Data API V3
 from googleapiclient.discovery import build
@@ -21,7 +25,7 @@ exercises = database.exercises
 currentUser = facebookUser()
 
 #Use the facebook graphAPI to retrieve user info
-graph = facebook.GraphAPI(access_token="EAAE8MYlgcvUBAJ979GWMwZBQS4zXBUjQa4H0wT5o0MGE0LHXvviagCXzPzx9ARCnrT5JiDtwSnB6XbHdsDhhYZB3lPwTOY2ZCmhYSWvMmJslnFjuIr3Hu21e5dm3ZBLr2ZC4bTeTEZBUNXfwTK1qYi6vNdZC5MVZA18X9hdY1rdY8QZDZD")
+graph = facebook.GraphAPI(access_token=FACEBOOK_ACCESS_TOKEN)
 
 
 @app.route('/')
@@ -53,9 +57,7 @@ def webhook():
 
         res = youtubeSearch(query)
 
-        res = jsonify(res)
-
-        return make_response(res)
+        return
 
     elif (action == 'legs'):
         res = legDay(postRequestData)
@@ -100,26 +102,27 @@ def youtubeSearch(query):
 
     videoURL = videoURL + videoID
 
-    customPayload = {
-        'payload':{
-            'facebook':{
-                'recipient':{
-                    'id':currentUser.getID()
-                },
-                'message':{
-                    "attachment": {
-                        "type": "video",
-                        "payload": {
-                            "url": videoURL,
-                            "is_reusable":True
-                        }
-                    }
+    url = "https://graph.facebook.com/v3.3/me/messages?access_token=<"+FACEBOOK_ACCESS_TOKEN+">"
+    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+
+    payload = {
+        "recipient":{
+            "id":currentUser.getID()
+        },
+        "message":{
+            "attachment":{
+                "type":"video",
+                "payload":{
+                    "url":videoURL,
+                    "is_reusable":True
                 }
             }
         }
     }
 
-    return customPayload
+    r = requests.post(url, data=payload, headers=headers)
+
+    return
 
 if __name__ == '__main__':
     app.run()
