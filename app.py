@@ -104,21 +104,17 @@ def youtubeSearch(query):
     videoURL = videoURL + videoID
 
     payload = {
-        "facebook":{
-            "message":{
-                "attachment":{
-                    "type":"template",
-                    "payload":{
-                        "template_type":"open_graph",
-                        "elements":[
-                            {
-                                "url":videoURL
-                            }
-                        ]
-                    }
-                }
-            }
-        }
+      "card": {
+        "title": "Here you go:",
+        "subtitle": "",
+        "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+        "buttons": [
+          {
+            "text": "Play",
+            "postback": videoURL
+          }
+        ]
+      }
     }
 
     return payload
