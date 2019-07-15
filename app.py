@@ -97,7 +97,7 @@ def youtubeSearch(query):
         part='snippet',
         maxResults = 1,
         type='video',
-        order='relevance'
+        order='viewCount'
     ).execute()
 
     videoID = searchResult.get('items')[0].get('id').get('videoId')
