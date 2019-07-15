@@ -87,19 +87,22 @@ def legDay(req):
     return response
 
 def youtubeSearch(query):
+    searchTerm = "How to "+query
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=YOUTUBE_API_KEY)
 
     videoURL = 'https://youtube.com/watch?v='
 
     searchResult = youtube.search().list(
-        q=query,
+        q=searchTerm,
         part='snippet',
         maxResults = 1,
         type='video',
-        order='viewCount'
+        order='relevance'
     ).execute()
 
     videoID = searchResult.get('items')[0].get('id').get('videoId')
+    title = searchResult.get('items')[0].get('snippet').get('title')
+    thumbnail = searchResult.get('items')[0].get('snippet').get('thumbnails').get('high').get('url')
 
     videoURL = videoURL + videoID
 
@@ -107,9 +110,9 @@ def youtubeSearch(query):
         "fulfillmentMessages":[
             {
                 "card": {
-                    "title": "Here you go:",
+                    "title": title,
                     "subtitle": "",
-                    "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+                    "imageUri": thumbnail,
                     "buttons": [
                         {
                             "text": "Play",
