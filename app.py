@@ -95,14 +95,16 @@ def youtubeSearch(query):
     searchResult = youtube.search().list(
         q=searchTerm,
         part='snippet',
-        maxResults = 25,
+        maxResults = 100,
         type='video',
         order='viewCount',
         videoDuration='short'
     ).execute()
 
     acceptableChannels = ['UCEtMRF1ywKMc4sf3EXYyDzw', 'UCSpVHeDGr9UbREhRca0qwsA',
-                          'UC4ZfcaoM-ZWSsMhWlr8H8Ig']
+                          'UC4ZfcaoM-ZWSsMhWlr8H8Ig', 'UCKf0UqBiCQI4Ol0To9V0pKQ',
+                          'UClSBkB4OF9NREOmVq3OlGtg', 'UCwJfDTNqtM5n-dQBfuuHzYw',
+                          'UC5_i5V3xXxdqF5VKVmJWVZQ']
 
     for i in range(25):
         channelid = searchResult.get('items')[i].get('snippet').get('channelId')
