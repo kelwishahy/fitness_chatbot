@@ -55,8 +55,9 @@ def webhook():
         query = postRequestData.get('queryResult').get('parameters').get('exercise')
 
         res = youtubeSearch(query)
+        fulfillmentMessages = {'fulfillmentMessages':res}
 
-        response = make_response(jsonify({'fulfillmentMessages':res}))
+        response = make_response(jsonify(fulfillmentMessages))
 
         return response
 
