@@ -96,7 +96,7 @@ def youtubeSearch(query):
 
     videoID = searchResult.get('items')[0].get('id').get('videoId')
 
-    videoURL = videoURL + videoID
+    videoURL = videoURL + videoID + '  \n'
 
     return videoURL
 
