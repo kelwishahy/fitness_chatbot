@@ -55,9 +55,8 @@ def webhook():
         query = postRequestData.get('queryResult').get('parameters').get('exercise')
 
         res = youtubeSearch(query)
-        fulfillmentMessages = {'fulfillmentMessages':res}
 
-        response = make_response(jsonify(fulfillmentMessages))
+        response = make_response(jsonify(res))
 
         return response
 
@@ -105,17 +104,21 @@ def youtubeSearch(query):
     videoURL = videoURL + videoID
 
     payload = {
-      "card": {
-        "title": "Here you go:",
-        "subtitle": "",
-        "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
-        "buttons": [
-          {
-            "text": "Play",
-            "postback": videoURL
-          }
+        "fulfillmentMessages":[
+            {
+                "card": {
+                    "title": "Here you go:",
+                    "subtitle": "",
+                    "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+                    "buttons": [
+                        {
+                            "text": "Play",
+                            "postback": videoURL
+                        }
+                    ]
+                }
+            }
         ]
-      }
     }
 
     return payload
