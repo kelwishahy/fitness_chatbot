@@ -95,16 +95,26 @@ def youtubeSearch(query):
     searchResult = youtube.search().list(
         q=searchTerm,
         part='snippet',
-        maxResults = 1,
+        maxResults = 25,
         type='video',
-        order='viewCount'
+        order='viewCount',
+        videoDuration='short'
     ).execute()
 
-    videoID = searchResult.get('items')[0].get('id').get('videoId')
-    title = searchResult.get('items')[0].get('snippet').get('title')
-    thumbnail = searchResult.get('items')[0].get('snippet').get('thumbnails').get('high').get('url')
+    acceptableChannels = ['UCEtMRF1ywKMc4sf3EXYyDzw', 'UCSpVHeDGr9UbREhRca0qwsA',
+                          'UC4ZfcaoM-ZWSsMhWlr8H8Ig']
+
+    for i in range(25):
+        channelid = searchResult.get('items')[i].get('snippet').get('channelId')
+        videoID = searchResult.get('items')[i].get('id').get('videoId')
+        title = searchResult.get('items')[i].get('snippet').get('title')
+        thumbnail = searchResult.get('items')[i].get('snippet').get('thumbnails').get('high').get('url')
+
+        if channelid in acceptableChannels:
+            break
 
     videoURL = videoURL + videoID
+
 
     payload = {
         "fulfillmentMessages":[
