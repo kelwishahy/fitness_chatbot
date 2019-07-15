@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response, jsonify, render_template
 from pymongo import MongoClient
 from user import facebookUser
-import requests
+import pafy
 
 #Facebook graph API
 import facebook
@@ -57,7 +57,9 @@ def webhook():
 
         res = youtubeSearch(query)
 
-        return
+        response = make_response(jsonify({'fulfillmentMessages':res}))
+
+        return response
 
     elif (action == 'legs'):
         res = legDay(postRequestData)
@@ -101,28 +103,22 @@ def youtubeSearch(query):
     videoID = searchResult.get('items')[0].get('id').get('videoId')
 
     videoURL = videoURL + videoID
+    video = pafy.new(videoURL)
+    streamableVideo = video.getbest(preftype="mp4")
 
-    url = "https://graph.facebook.com/v3.3/me/messages?access_token=<"+FACEBOOK_ACCESS_TOKEN+">"
-    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
 
     payload = {
-        "recipient":{
-            "id":currentUser.getID()
-        },
-        "message":{
+        "facebook":{
             "attachment":{
                 "type":"video",
                 "payload":{
-                    "url":videoURL,
-                    "is_reusable":True
+                    "url":streamableVideo.url
                 }
             }
         }
     }
 
-    r = requests.post(url, data=payload, headers=headers)
-
-    return
+    return payload
 
 if __name__ == '__main__':
     app.run()
