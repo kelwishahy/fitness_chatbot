@@ -53,7 +53,7 @@ def webhook():
 
         url = youtubeSearch(query)
 
-        res = 'Here you go:  \n' + url
+        res = url
 
     elif (action == 'legs'):
         res = legDay(postRequestData)
@@ -84,7 +84,7 @@ def legDay(req):
 def youtubeSearch(query):
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=YOUTUBE_API_KEY)
 
-    videoURL = 'https://youtu.be/'
+    videoURL = 'https://m.youtube.com/watch?v='
 
     searchResult = youtube.search().list(
         q=query,
@@ -96,7 +96,7 @@ def youtubeSearch(query):
 
     videoID = searchResult.get('items')[0].get('id').get('videoId')
 
-    videoURL = videoURL + videoID + '  \n'
+    videoURL = videoURL + videoID + '&feature=youtu.be'
 
     return videoURL
 
