@@ -97,7 +97,7 @@ def youtubeSearch(query):
         part='snippet',
         maxResults = 50,
         type='video',
-        order='viewCount',
+        order='relevance',
         videoDuration='short'
     ).execute()
 
