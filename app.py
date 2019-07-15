@@ -51,9 +51,11 @@ def webhook():
     elif (action == 'retrieveVideo'):
         query = postRequestData.get('queryResult').get('parameters').get('exercise')
 
-        url = youtubeSearch(query)
+        res = youtubeSearch(query)
 
-        res = url
+        res = jsonify(res)
+
+        return make_response(res)
 
     elif (action == 'legs'):
         res = legDay(postRequestData)
@@ -84,7 +86,7 @@ def legDay(req):
 def youtubeSearch(query):
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=YOUTUBE_API_KEY)
 
-    videoURL = 'https://m.youtube.com/watch?v='
+    videoURL = 'https://youtube.com/w?v='
 
     searchResult = youtube.search().list(
         q=query,
@@ -96,9 +98,28 @@ def youtubeSearch(query):
 
     videoID = searchResult.get('items')[0].get('id').get('videoId')
 
-    videoURL = videoURL + videoID + '&feature=youtu.be'
+    videoURL = videoURL + videoID
 
-    return videoURL
+    customPayload = {
+        'payload':{
+            'facebook':{
+                'recipient':{
+                    'id':currentUser.getID()
+                },
+                'message':{
+                    "attachment": {
+                        "type": "video",
+                        "payload": {
+                            "url": videoURL,
+                            "is_reusable":True
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return customPayload
 
 if __name__ == '__main__':
     app.run()
