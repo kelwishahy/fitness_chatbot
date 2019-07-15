@@ -1,7 +1,6 @@
 from flask import Flask, request, make_response, jsonify, render_template
 from pymongo import MongoClient
 from user import facebookUser
-import pafy
 
 #Facebook graph API
 import facebook
@@ -90,7 +89,7 @@ def legDay(req):
 def youtubeSearch(query):
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=YOUTUBE_API_KEY)
 
-    videoURL = 'https://youtube.com/w?v='
+    videoURL = 'https://youtube.com/watch?v='
 
     searchResult = youtube.search().list(
         q=query,
@@ -103,16 +102,20 @@ def youtubeSearch(query):
     videoID = searchResult.get('items')[0].get('id').get('videoId')
 
     videoURL = videoURL + videoID
-    video = pafy.new(videoURL)
-    streamableVideo = video.getbest(preftype="mp4")
-
 
     payload = {
         "facebook":{
-            "attachment":{
-                "type":"video",
-                "payload":{
-                    "url":streamableVideo.url
+            "message":{
+                "attachment":{
+                    "type":"template",
+                    "payload":{
+                        "template_type":"open_graph",
+                        "elements":[
+                            {
+                                "url":videoURL
+                            }
+                        ]
+                    }
                 }
             }
         }
