@@ -48,6 +48,13 @@ def webhook():
     elif (action == 'get-response'):
         res = test_intent(postRequestData)
 
+    elif (action == 'retrieveVideo'):
+        query = postRequestData.get('queryResult').get('parameters').get('exercise')
+
+        url = youtubeSearch(query)
+        
+        res = 'Here you go:  \n' + url
+
     elif (action == 'legs'):
         res = legDay(postRequestData)
 
@@ -79,13 +86,19 @@ def youtubeSearch(query):
 
     videoURL = 'https://www.youtube.com/watch?v='
 
-    searchResults = youtube.search().list(
+    searchResult = youtube.search().list(
         q=query,
         part='snippet',
         maxResults = 1,
-        type='video'
+        type='video',
+        order='viewCount'
     ).execute()
 
+    videoID = searchResult.get('items')[0].get('id').get('videoId')
+
+    videoURL = videoURL + videoID
+
+    return videoURL
 
 if __name__ == '__main__':
     app.run()
