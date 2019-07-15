@@ -3,6 +3,12 @@ from pymongo import MongoClient
 from user import facebookUser
 import facebook
 
+#Youtube Data API V3
+from googleapiclient.discovery import build
+YOUTUBE_API_KEY = 'AIzaSyAs-iOyMzSgDwIKOTTQ_EgTgkGIeAP3VIE'
+YOUTUBE_API_SERVICE_NAME = 'youtube'
+YOUTUBE_API_VERSION = 'v3'
+
 
 
 app = Flask(__name__, template_folder='templates')
@@ -67,6 +73,18 @@ def legDay(req):
         i = i + 1
 
     return response
+
+def youtubeSearch(query):
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=YOUTUBE_API_KEY)
+
+    videoURL = 'https://www.youtube.com/watch?v='
+
+    searchResults = youtube.search().list(
+        q=query,
+        part='snippet',
+        maxResults = 1,
+        type='video'
+    ).execute()
 
 
 if __name__ == '__main__':
