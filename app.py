@@ -95,7 +95,7 @@ def youtubeSearch(query):
     searchResult = youtube.search().list(
         q=searchTerm,
         part='snippet',
-        maxResults = 100,
+        maxResults = 50,
         type='video',
         order='viewCount',
         videoDuration='short'
