@@ -60,8 +60,17 @@ def webhook():
         ex = list(spider_man.webSearch('chest'))
         res = "Here is your chest workout:  \n  \n"
 
-        for x in range(10):
-            res = res + str(x) + ". " + ex[random.randint(0, len(ex))] + "  \n  \n"
+        # Select 10 different exercises
+        nums = []
+        for i in range(10):
+            num = random.randint(0, len(ex))
+            while num in nums:
+                num = random.randint(0, len(ex))
+
+            nums.append(num)
+
+        for x in range(1, 11):
+            res = res + str(x) + ". " + ex[nums[x-1]] + "  \n  \n"
 
         response = make_response(jsonify({'fulfillmentText': res}))
         return response
