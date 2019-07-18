@@ -76,19 +76,27 @@ class crawler:
         return exerciseSet
 
     def whatIs(self, query):
-        url = 'https://www.bodybuilding.com/exercises/' + query.lower()
+        query = query.lower()
+        query = query.replace(" ", "+")
+        searchURL = 'https://www.bodybuilding.com/exercises/search?query=' + query
+        searchResult = requests.get(searchURL)
+        searchResult.raise_for_status()
+        searchResult = bs4.BeautifulSoup(searchResult.text, features="html.parser")
+
+        exercisePath = searchResult.find(class_="ExResult-cell ExResult-cell--nameEtc").find('a')['href']
+        url = 'https://www.bodybuilding.com' + exercisePath
+        print(url)
         res = requests.get(url)
         res.raise_for_status()
 
         page = bs4.BeautifulSoup(res.text, features="html.parser")
         title = page.find('h2', class_='ExHeading ExHeading--h2 ExDetail-h2').text
-        video = page.find('video', class_='jw-video jw-reset')['src']
+        video = page.find(class_='ExVideo js-ex-video')['data-src']
         photo = page.find('img', class_='ExImg ExDetail-img js-ex-enlarge')['data-large-photo']
 
         result = [url, photo, video, title]
 
         return result
-
     # --------------------------------------------------------------------------
 
     # Class methods, do not use externally
