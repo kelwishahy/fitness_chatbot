@@ -61,7 +61,7 @@ def webhook():
         res = "Here is your chest workout:  \n  \n"
 
         for x in range(10):
-            res = res + x + ". " + ex[random.randint(0, len(ex))] + "  \n  \n"
+            res = res + str(x) + ". " + ex[random.randint(0, len(ex))] + "  \n  \n"
 
         response = make_response(jsonify({'fulfillmentText': res}))
         return response
