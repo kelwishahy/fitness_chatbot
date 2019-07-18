@@ -1,6 +1,11 @@
 from flask import Flask, request, make_response, jsonify, render_template
 from pymongo import MongoClient
 from user import facebookUser
+from webCrawler import crawler
+import random
+
+# Web crawler api
+spider_man = crawler()
 
 #Facebook graph API
 import facebook
@@ -50,6 +55,17 @@ def webhook():
 
     elif (action == 'get-response'):
         res = test_intent(postRequestData)
+
+    elif (action == 'chestWorkout'):
+        ex = list(spider_man.webSearch('chest'))
+        res = "Here is your chest workout:  \n"
+
+        for x in range(10):
+            res = res + "1. " + ex[random.randint(0, len(ex))] + "  \n"
+
+        response = make_response(jsonify({'fulfillmentText': res}))
+        return response
+
 
     elif (action == 'retrieveVideo'):
         query = postRequestData.get('queryResult').get('parameters').get('exercise')
@@ -106,7 +122,7 @@ def youtubeSearch(query):
                           'UClSBkB4OF9NREOmVq3OlGtg', 'UCwJfDTNqtM5n-dQBfuuHzYw',
                           'UC5_i5V3xXxdqF5VKVmJWVZQ']
 
-    for i in range(25):
+    for i in range(50):
         channelid = searchResult.get('items')[i].get('snippet').get('channelId')
         videoID = searchResult.get('items')[i].get('id').get('videoId')
         title = searchResult.get('items')[i].get('snippet').get('title')
