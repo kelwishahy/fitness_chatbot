@@ -69,8 +69,8 @@ def webhook():
 
             nums.append(num)
 
-        for x in range(1, 11):
-            res = res + str(x) + ". " + ex[nums[x-1]] + "  \n  \n"
+        for x in range(10):
+            res = res + str(x+1) + ". " + ex[nums[x]] + "  \n  \n"
 
         response = make_response(jsonify({'fulfillmentText': res}))
         return response
