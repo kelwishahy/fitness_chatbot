@@ -58,10 +58,10 @@ def webhook():
 
     elif (action == 'chestWorkout'):
         ex = list(spider_man.webSearch('chest'))
-        res = "Here is your chest workout:  \n"
+        res = "Here is your chest workout:  \n  \n"
 
         for x in range(10):
-            res = res + "1. " + ex[random.randint(0, len(ex))] + "  \n"
+            res = res + x + ". " + ex[random.randint(0, len(ex))] + "  \n  \n"
 
         response = make_response(jsonify({'fulfillmentText': res}))
         return response
