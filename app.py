@@ -85,6 +85,12 @@ def webhook():
 
         return response
 
+    elif (action == 'whatIs'):
+        query = postRequestData.get('queryResult').get('parameters').get('exercise')
+        res = learnMore(query)
+        response = make_response(jsonify(res))
+        return response
+
     elif (action == 'legs'):
         res = legDay(postRequestData)
 
@@ -162,6 +168,40 @@ def youtubeSearch(query):
     }
 
     return payload
+
+def learnMore(query):
+    results = spider_man.whatIs(query)
+    url = results[0]
+    photo = results[1]
+    video = results[2]
+    title = results[3]
+
+    payload = {
+        "fulfillmentMessages":[
+            {
+                "card": {
+                    "title": title,
+                    "subtitle": "",
+                    "imageUri": photo,
+                    "buttons": [
+                        {
+                            "text": "Play",
+                            "postback": video
+                        },
+                        {
+                            "text": "Learn More",
+                            "postback": url
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+
+    return payload
+
+
+
 
 if __name__ == '__main__':
     app.run()
