@@ -1,4 +1,4 @@
-import requests, bs4, threading
+import requests, bs4, threading, time
 
 
 # FUNCTIONALITY
@@ -26,6 +26,9 @@ class crawler:
         self.url = 'https://www.bodybuilding.com/topic/'
         self.exerciseSet = set()
         self.workoutLinks = []
+
+        # Mutex lock
+        self.lock = threading.Lock()
 
     def webSearch(self, query):
         # Match the given query to one of the available topics
@@ -60,8 +63,18 @@ class crawler:
         for thread in threads:
             thread.join()
 
+        exerciseSet = set()
 
-        return self.exerciseSet
+        for x in self.exerciseSet:
+            exerciseSet.add(x)
+
+        #Reset
+        self.url = 'https://www.bodybuilding.com/topic/'
+        self.exerciseSet.clear()
+        self.workoutLinks.clear()
+
+        return exerciseSet
+
     # --------------------------------------------------------------------------
 
     # Class methods, do not use externally
@@ -81,15 +94,20 @@ class crawler:
 
         try:
             page = bs4.BeautifulSoup(res.text, features="html.parser")
-            exerciseContainer = page.find('div',
-                                          class_='cms-article-list__container cms-article__workout-plan bbcomWorkoutPlan')
+            exerciseContainer = page.find('div', class_='cms-article-list__container cms-article__workout-plan bbcomWorkoutPlan')
             exerciseContainer = exerciseContainer.find('div', class_='cms-article-list__content--wrapper')
             exerciseContainer = exerciseContainer.find_all('div', class_='cms-article-list__content--container')
 
             for ex in exerciseContainer:
                 exercise = ex.find('div', class_='cms-article-list__content').find('div')
                 exercise = exercise.find('div', class_='cms-article-workout__exercise--info').find('a').text
+
+                while self.lock.acquire() == False:
+                    time.sleep(0)
+
                 self.exerciseSet.add(exercise)
+
+                self.lock.release()
         except:
             pass
 
@@ -97,4 +115,8 @@ class crawler:
         articleType = article.find('figure').find('figcaption').find('span', class_='category').text
 
         if (articleType == 'Workouts'):
+            while self.lock.acquire() == False:
+                time.sleep(0) # Yield thread
+
             self.workoutLinks.append(article.find('figure').find('a')['href'])
+            self.lock.release()
