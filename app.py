@@ -63,7 +63,9 @@ def webhook():
         # Select 10 different exercises
         nums = set()
         while len(nums) < 10:
-            nums.add(random.randint(0, len(ex)))
+            num = random.randint(0, len(ex))
+            if (num < len(ex)):
+                nums.add(num)
 
         x = 1
         for num in nums:
