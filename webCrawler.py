@@ -88,7 +88,7 @@ class crawler:
         video = page.find(class_='ExVideo js-ex-video')['data-src']
         photo = page.find('img', class_='ExImg ExDetail-img js-ex-enlarge')['data-large-photo']
 
-        result = [url, photo, video, title]
+        result = [exerciseLink, photo, video, title]
 
         return result
     # --------------------------------------------------------------------------
