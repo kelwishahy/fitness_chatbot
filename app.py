@@ -100,6 +100,12 @@ def webhook():
         response = make_response(jsonify(res))
         return response
 
+    elif (action == 'whatIsChest'):
+        query = postRequestData.get('queryResult').get('parameters').get('chest')
+        res = learnMore(query)
+        response = make_response(jsonify(res))
+        return response
+
     response = make_response(jsonify({'fulfillmentText': res}))
 
     return response
