@@ -1,4 +1,4 @@
-import requests, bs4, threading, time
+import requests, bs4, threading, time, re
 
 
 # FUNCTIONALITY
