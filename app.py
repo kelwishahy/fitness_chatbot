@@ -94,6 +94,12 @@ def webhook():
     elif (action == 'legs'):
         res = legDay(postRequestData)
 
+    elif (action == 'whatIsArms'):
+        query = postRequestData.get('queryResult').get('parameters').get('arms')
+        res = learnMore(query)
+        response = make_response(jsonify(res))
+        return response
+
     response = make_response(jsonify({'fulfillmentText': res}))
 
     return response
