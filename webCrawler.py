@@ -78,6 +78,7 @@ class crawler:
         return exerciseSet
 
     def whatIs(self, query):
+        self.query = query.lower().replace("-", " ")
         exerciseLink = self.match_query(query)
 
         res = requests.get(exerciseLink)
@@ -101,8 +102,21 @@ class crawler:
         searchResult = requests.get(searchURL)
         searchResult.raise_for_status()
         searchResult = bs4.BeautifulSoup(searchResult.text, features="html.parser")
+        exercises = searchResult.find_all(class_="ExResult-row flexo-container flexo-between")
 
-        exercisePath = searchResult.find(class_="ExResult-cell ExResult-cell--nameEtc").find('a')['href']
+        for x in exercises:
+            title = x.find(class_='ExHeading ExResult-resultsHeading').find('a').text
+            u_title = title.lower()
+            u_title = u_title.replace("-", " ")
+            match = re.search(query.replace("+", " "), u_title)
+            if match != None:
+                print(match.group(0))
+                exercisePath = x.find(class_="ExResult-cell ExResult-cell--nameEtc").find('a')['href']
+                url = 'https://www.bodybuilding.com' + exercisePath
+                print(url)
+                return url
+
+        exercisePath = x.find(class_="ExResult-cell ExResult-cell--nameEtc").find('a')['href']
         url = 'https://www.bodybuilding.com' + exercisePath
 
         return url
