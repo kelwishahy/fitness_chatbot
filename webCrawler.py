@@ -76,17 +76,9 @@ class crawler:
         return exerciseSet
 
     def whatIs(self, query):
-        query = query.lower()
-        query = query.replace(" ", "+")
-        searchURL = 'https://www.bodybuilding.com/exercises/search?query=' + query
-        searchResult = requests.get(searchURL)
-        searchResult.raise_for_status()
-        searchResult = bs4.BeautifulSoup(searchResult.text, features="html.parser")
+        exerciseLink = self.match_query(query)
 
-        exercisePath = searchResult.find(class_="ExResult-cell ExResult-cell--nameEtc").find('a')['href']
-        url = 'https://www.bodybuilding.com' + exercisePath
-        print(url)
-        res = requests.get(url)
+        res = requests.get(exerciseLink)
         res.raise_for_status()
 
         page = bs4.BeautifulSoup(res.text, features="html.parser")
@@ -100,14 +92,18 @@ class crawler:
     # --------------------------------------------------------------------------
 
     # Class methods, do not use externally
-    @classmethod
-    def match_query(cls, query):
+    def match_query(self, query):
         query = query.lower()
+        query = query.replace(" ", "+")
+        searchURL = 'https://www.bodybuilding.com/exercises/search?query=' + query
+        searchResult = requests.get(searchURL)
+        searchResult.raise_for_status()
+        searchResult = bs4.BeautifulSoup(searchResult.text, features="html.parser")
 
-        if query in cls.topics:
-            return query
-        else:
-            raise Exception('Query could not be matched')
+        exercisePath = searchResult.find(class_="ExResult-cell ExResult-cell--nameEtc").find('a')['href']
+        url = 'https://www.bodybuilding.com' + exercisePath
+
+        return url
 
     def findExercises(self, link):
         # Download the page

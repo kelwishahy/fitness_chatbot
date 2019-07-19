@@ -185,7 +185,7 @@ def learnMore(query):
                     "imageUri": photo,
                     "buttons": [
                         {
-                            "text": "Play",
+                            "text": "Watch",
                             "postback": video
                         },
                         {
