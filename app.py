@@ -86,7 +86,7 @@ def webhook():
         return response
 
     elif (action == 'whatIs'):
-        query = postRequestData.get('queryResult').get('parameters').get('exercise')
+        query = list(postRequestData.get('queryResult').get('parameters'))[0]
         res = learnMore(query)
         response = make_response(jsonify(res))
         return response
