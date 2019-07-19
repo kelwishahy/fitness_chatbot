@@ -116,10 +116,7 @@ class crawler:
                 print(url)
                 return url
 
-        exercisePath = x.find(class_="ExResult-cell ExResult-cell--nameEtc").find('a')['href']
-        url = 'https://www.bodybuilding.com' + exercisePath
-
-        return url
+            return None
 
     def findExercises(self, link):
         # Download the page

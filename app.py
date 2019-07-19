@@ -176,35 +176,51 @@ def youtubeSearch(query):
     return payload
 
 def learnMore(query):
-    results = spider_man.whatIs(query)
-    url = results[0]
-    photo = results[1]
-    video = results[2]
-    title = results[3]
+    try:
+        results = spider_man.whatIs(query)
+        url = results[0]
+        photo = results[1]
+        video = results[2]
+        title = results[3]
 
-    payload = {
-        "fulfillmentMessages":[
-            {
-                "card": {
-                    "title": title,
-                    "subtitle": "",
-                    "imageUri": photo,
-                    "buttons": [
-                        {
-                            "text": "Watch",
-                            "postback": video
-                        },
-                        {
-                            "text": "Learn More",
-                            "postback": url
-                        }
-                    ]
+        payload = {
+            "fulfillmentMessages":[
+                {
+                    "card": {
+                        "title": title,
+                        "subtitle": "",
+                        "imageUri": photo,
+                        "buttons": [
+                            {
+                                "text": "Watch",
+                                "postback": video
+                            },
+                            {
+                                "text": "Learn More",
+                                "postback": url
+                            }
+                        ]
+                    }
                 }
-            }
-        ]
-    }
+            ]
+        }
+
+    except:
+        payload = {
+            "fulfillmentMessages": [
+                {
+                    "text": {
+                        "text": [
+                            "I missed that, say that again?"
+                        ]
+                    },
+                    "lang": "en"
+                }
+            ]
+        }
 
     return payload
+
 
 
 
