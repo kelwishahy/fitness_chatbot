@@ -32,7 +32,9 @@ class crawler:
 
     def webSearch(self, query):
         # Match the given query to one of the available topics
-        self.query = crawler.match_query(query=query)
+        query = query.lower()
+        if query in self.topics:
+            self.query = query
 
         # Navigate to the requested topic page on www.bodybuilding.com
         self.url = self.url + self.query
